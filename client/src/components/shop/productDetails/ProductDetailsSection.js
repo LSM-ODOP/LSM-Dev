@@ -363,6 +363,7 @@ const ProductDetailsSection = (props) => {
               </div>
               {/* Incart and out of stock button */}
               {/* Incart and out of stock button End */}
+              <button>Add to cart</button>
             </div>
           </div>
         </div>
