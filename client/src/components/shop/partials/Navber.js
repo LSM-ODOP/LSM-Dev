@@ -22,6 +22,12 @@ const Navber = (props) => {
       ? dispatch({ type: "loginSignupModalToggle", payload: false })
       : dispatch({ type: "loginSignupModalToggle", payload: true });
 
+  const cartModalopen = () =>     
+  data.CartModal
+  ? dispatch({ type: "cartModalToggle", payload: false })
+  : dispatch({ type: "cartModalToggle", payload: true });
+
+
   return (
     <Fragment>
       {/* Navber Section */}
@@ -329,8 +335,8 @@ const Navber = (props) => {
               </div>
             )}
             {/* Cart Modal Button */}
-            { /*<div
-              onClick={(e) => cartModalOpen()}
+            { <div
+              onClick={(e) => cartModalopen()}
               className="hover:bg-gray-200 px-2 py-2 rounded-lg relative cursor-pointer"
               title="Cart"
             >
@@ -351,7 +357,7 @@ const Navber = (props) => {
               <span className="absolute top-0 ml-6 mt-1 bg-yellow-700 rounded px-1 text-white text-xs hover:text-gray-200 font-semibold">
                 {data.cartProduct !== null ? data.cartProduct.length : 0}
               </span>
-            </div>*/ }
+            </div> }
           </div>
         </div>
         <div

@@ -4,7 +4,7 @@ import { ProductDetailsContext } from "./index";
 import { LayoutContext } from "../layout";
 import Submenu from "./Submenu";
 import ProductDetailsSectionTwo from "./ProductDetailsSectionTwo";
-
+import { useHistory } from "react-router-dom";
 import { getSingleProduct } from "./FetchApi";
 import { cartListProduct } from "../partials/FetchApi";
 
@@ -15,7 +15,7 @@ const apiURL = process.env.REACT_APP_API_URL;
 
 const ProductDetailsSection = (props) => {
   let { id } = useParams();
-
+  const history = useHistory();
   const { data, dispatch } = useContext(ProductDetailsContext);
   const { data: layoutData, dispatch: layoutDispatch } =
     useContext(LayoutContext); // Layout Context
@@ -26,6 +26,12 @@ const ProductDetailsSection = (props) => {
 
   const [quantitiy, setQuantitiy] = useState(1); // Increse and decrese quantity state
   const [, setAlertq] = useState(false); // Alert when quantity greater than stock
+
+  const cartModalopen = () =>     
+  data.CartModal
+  ? dispatch({ type: "cartModalToggle", payload: false })
+  : dispatch({ type: "cartModalToggle", payload: true });
+
 
   const [wList, setWlist] = useState(
     JSON.parse(localStorage.getItem("wishList"))
@@ -360,10 +366,28 @@ const ProductDetailsSection = (props) => {
                   </div>
                 )}
                 {/* Quantity Button End */}
+                
               </div>
+              <br/>
+              <div><button
+                onClick={(e) => {    
+                  const cartItem = {
+                  productId: sProduct._id,
+                  quantity: quantitiy,
+                };
+                let cart = JSON.parse(localStorage.getItem("cart")) || [];
+                cart.push(cartItem);
+                localStorage.setItem("cart", JSON.stringify(cart));
+                console.log(localStorage.getItem("cart"))
+                
+                cartModalopen();
+             }}
+                className="bg-yellow-500 text-white px-4 py-2 rounded-md hover:bg-yellow-600"
+              >
+              Add to Cart
+              </button></div>
               {/* Incart and out of stock button */}
               {/* Incart and out of stock button End */}
-              <button>Add to cart</button>
             </div>
           </div>
         </div>

@@ -1,20 +1,21 @@
-import axios from "axios";
-const apiURL = process.env.REACT_APP_API_URL;
+const transformObject = (array) => {
+  return array.reduce((acc, curr) => {
+    const { productId } = curr;
+    if (acc[productId]) {
+      acc[productId] += 1;
+    } else {
+      acc[productId] = 1;
+    }
+    return acc;
+  }, {});
+};
+
 
 export const cartListProduct = async () => {
   let carts = JSON.parse(localStorage.getItem("cart"));
-  let productArray = [];
+  let productArray;
   if (carts) {
-    for (const cart of carts) {
-      productArray.push(cart.id);
-    }
+    productArray = transformObject(carts);
   }
-  try {
-    let res = await axios.post(`${apiURL}/api/product/cart-product`, {
-      productArray,
-    });
-    return res.data;
-  } catch (error) {
-    console.log(error);
-  }
+  return productArray;
 };

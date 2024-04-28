@@ -1,10 +1,11 @@
-import React, { Fragment, useContext, useEffect } from "react";
+import React, { Fragment, useContext, useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { LayoutContext } from "../index";
 import { cartListProduct } from "./FetchApi";
 import { isAuthenticate } from "../auth/fetchApi";
 import { cartList } from "../productDetails/Mixins";
 import { subTotal, quantity, totalCost } from "./Mixins";
+import { getSingleProduct } from "../productDetails/FetchApi";
 
 const apiURL = process.env.REACT_APP_API_URL;
 
@@ -13,6 +14,7 @@ const CartModal = () => {
 
   const { data, dispatch } = useContext(LayoutContext);
   const products = data.cartProduct;
+  const [items, setItems] = useState([]);
 
   const cartModalOpen = () =>
     dispatch({ type: "cartModalToggle", payload: !data.cartModal });
@@ -22,10 +24,15 @@ const CartModal = () => {
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
   const fetchData = async () => {
     try {
       let responseData = await cartListProduct();
+      let finalobj = [];
+      Object.entries(responseData).forEach( async (element) => {
+        let itemDetails = await getSingleProduct(element[0]);
+        finalobj.push({itemDetails, quantity: element[1]});
+      });
+      setItems(finalobj);
       if (responseData && responseData.Products) {
         dispatch({ type: "cartProduct", payload: responseData.Products });
         dispatch({ type: "cartTotalCost", payload: totalCost() });
@@ -92,20 +99,21 @@ const CartModal = () => {
               </div>
             </div>
             <div className="m-4 flex-col">
-              {products &&
-                products.length !== 0 &&
-                products.map((item, index) => {
+              {items &&
+                items.length !== 0 &&
+                items.map((item, index) => { 
+                  console.log(item);
                   return (
                     <Fragment key={index}>
                       {/* Cart Product Start */}
                       <div className="text-white flex space-x-2 my-4 items-center">
-                        <img
+                        {/* <img
                           className="w-16 h-16 object-cover object-center"
-                          src={`${apiURL}/uploads/products/${item.pImages[0]}`}
+                          src={`${apiURL}/uploads/products/${item?.pImages[0]}`}
                           alt="cartProduct"
-                        />
+                        /> */}
                         <div className="relative w-full flex flex-col">
-                          <div className="my-2">{item.pName}</div>
+                          <div className="my-2">{item?.itemDetails.Product.pName}</div>
                           <div className="flex items-center justify-between">
                             <div className="flex items-center justify-between space-x-2">
                               <div className="text-sm text-gray-400">
@@ -113,7 +121,7 @@ const CartModal = () => {
                               </div>
                               <div className="flex items-end">
                                 <span className="text-sm text-gray-200">
-                                  {quantity(item._id)}
+                                  {item?.quantity}
                                 </span>
                               </div>
                             </div>
@@ -122,13 +130,13 @@ const CartModal = () => {
                               <span className="text-sm text-gray-400">
                                 Subtotoal :
                               </span>{" "}
-                              ₹{subTotal(item._id, item.pPrice)}.00
+                              ₹{item?.quantity * item?.itemDetails.Product?.pPrice}
                             </div>{" "}
                             {/* SUbtotal Count */}
                           </div>
                           {/* Cart Product Remove Button */}
                           <div
-                            onClick={(e) => removeCartProduct(item._id)}
+                            onClick={(e) => removeCartProduct(item?.itemDetails.Product?._id)}
                             className="absolute top-0 right-0 text-white"
                           >
                             <svg
@@ -151,7 +159,7 @@ const CartModal = () => {
                   );
                 })}
 
-              {products === null && (
+              {items === null && (
                 <div className="m-4 flex-col text-white text-xl text-center">
                   No product in cart
                 </div>
@@ -165,7 +173,7 @@ const CartModal = () => {
             >
               Continue shopping
             </div>
-            {data.cartTotalCost ? (
+            (
               <Fragment>
                 {isAuthenticate() ? (
                   <div
@@ -175,7 +183,7 @@ const CartModal = () => {
                       cartModalOpen();
                     }}
                   >
-                    Checkout ₹{data.cartTotalCost}.00
+                    Checkout
                   </div>
                 ) : (
                   <div
@@ -197,11 +205,7 @@ const CartModal = () => {
                   </div>
                 )}
               </Fragment>
-            ) : (
-              <div className="px-4 py-2 bg-black text-white text-center cursor-not-allowed">
-                Checkout
-              </div>
-            )}
+            ) 
           </div>
         </div>
       </section>
