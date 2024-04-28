@@ -4,15 +4,18 @@ import { LayoutContext } from "../index";
 import { cartListProduct } from "./FetchApi";
 import { isAuthenticate } from "../auth/fetchApi";
 import { cartList } from "../productDetails/Mixins";
+// eslint-disable-next-line
 import { subTotal, quantity, totalCost } from "./Mixins";
 import { getSingleProduct } from "../productDetails/FetchApi";
 
+// eslint-disable-next-line
 const apiURL = process.env.REACT_APP_API_URL;
 
 const CartModal = () => {
   const history = useHistory();
 
   const { data, dispatch } = useContext(LayoutContext);
+  // eslint-disable-next-line
   const products = data.cartProduct;
   const [items, setItems] = useState([]);
 
