@@ -1,68 +1,73 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+[![codecov](https://codecov.io/gh/One-District-One-Product/ODOP-Dev/branch/main/graph/badge.svg)](https://codecov.io/gh/One-District-One-Product/ODOP-Dev)
 
-## Available Scripts
+## One District One  Product
+The One District One Product (ODOP) initiative is a unique program designed to promote the distinctive products that each district of Karnataka excels in. It aims to support local artisans and producers, uplift local economies, and preserve traditional craftsmanship.
 
-In the project directory, you can run:
+In our specific implementation of the ODOP project, the primary objective of the platform is to cut out intermediaries from the supply chain, enabling producers to receive fair remuneration for their products while giving consumers access to a diverse range of authentic ODOP items.
 
-### `npm start`
+## Getting Started
+To get started with our ODOP project, you don't need to install any software. It's an online platform that can be accessed from your web browser.
 
-Runs the app in the development mode.<br />
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Prerequisites
+The ODOP project is accessible through a web browser, so you only need an internet connection to get started. There are no specific software or hardware prerequisites for using the project.
 
-The page will reload if you make edits.<br />
-You will also see any lint errors in the console.
+## Installation
 
-### `npm test`
+As mentioned earlier, there's no installation required for our ODOP project. It is a web-based platform, and you can access it directly by visiting project website.
 
-Launches the test runner in the interactive watch mode.<br />
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+```npm start```
+```npm test```
+```npm run build```
 
-### `npm run build`
+##Screenshots
 
-Builds the app for production to the `build` folder.<br />
-It correctly bundles React in production mode and optimizes the build for the best performance.
+![WhatsApp Image 2023-10-19 at 9 03 17 AM](https://github.com/One-District-One-Product/ODOP-Dev/assets/113474452/fb4967ca-6ed1-4d53-9ec4-0e50f34151d6)
 
-The build is minified and the filenames include the hashes.<br />
-Your app is ready to be deployed!
+![WhatsApp Image 2023-10-19 at 9 03 11 AM](https://github.com/One-District-One-Product/ODOP-Dev/assets/113474452/80afbd10-6e4e-4f3f-a81b-8103571d8f48)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+![WhatsApp Image 2023-10-19 at 9 03 04 AM](https://github.com/One-District-One-Product/ODOP-Dev/assets/113474452/9910186d-37d1-494e-b3f0-93fab497335a)
 
-### `npm run eject`
+##Flowchart
+```mermaid
+sequenceDiagram
+    autonumber
+    actor LocalProducer as Local Producer
+    participant ODOPPlatform as ODOP Platform
+    actor Consumer
+    participant LogisticsProvider as Logistics Provider
+    participant PaymentGateway as Payment Gateway
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+    LocalProducer->>ODOPPlatform: Register and upload products
+    ODOPPlatform-->>LocalProducer: Confirm product listing
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+    Consumer->>ODOPPlatform: Browse local products
+    ODOPPlatform-->>Consumer: Display local products
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+    Consumer->>ODOPPlatform: Select product and add to cart
+    ODOPPlatform-->>Consumer: Update cart
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+    Consumer->>ODOPPlatform: Proceed to checkout
+    ODOPPlatform->>PaymentGateway: Initiate payment process
+    PaymentGateway-->>ODOPPlatform: Provide payment options
 
-## Learn More
+    ODOPPlatform-->>Consumer: Provide payment options
+    Consumer->>PaymentGateway: Enter payment details
+    PaymentGateway-->>ODOPPlatform: Confirm payment
+    ODOPPlatform-->>Consumer: Confirm payment
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+    ODOPPlatform-->>LocalProducer: Notify new order
+    LocalProducer-->>ODOPPlatform: Confirm order and process shipment
+    ODOPPlatform->>LogisticsProvider: Initiate shipment
+    LogisticsProvider-->>ODOPPlatform: Provide shipping details
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+    ODOPPlatform-->>Consumer: Provide shipping details
+    Consumer-->>ODOPPlatform: Receive product
 
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+    Consumer->>ODOPPlatform: Provide feedback/rating
+    ODOPPlatform-->>LocalProducer: Share feedback
+```
+```mermaid
+graph TD;
+    ODOPPlatform-->Wholesaler;
+    ODOPPlatform-->Retailer;
+```
