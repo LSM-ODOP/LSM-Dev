@@ -21,11 +21,9 @@ As mentioned earlier, there's no installation required for our ODOP project. It 
 
 ##Screenshots
 
-![WhatsApp Image 2023-10-19 at 9 03 17 AM](https://github.com/One-District-One-Product/ODOP-Dev/assets/113474452/fb4967ca-6ed1-4d53-9ec4-0e50f34151d6)
+<img src="1.png">
 
-![WhatsApp Image 2023-10-19 at 9 03 11 AM](https://github.com/One-District-One-Product/ODOP-Dev/assets/113474452/80afbd10-6e4e-4f3f-a81b-8103571d8f48)
-
-![WhatsApp Image 2023-10-19 at 9 03 04 AM](https://github.com/One-District-One-Product/ODOP-Dev/assets/113474452/9910186d-37d1-494e-b3f0-93fab497335a)
+<img src="2.png">
 
 ##Flowchart
 ```mermaid
