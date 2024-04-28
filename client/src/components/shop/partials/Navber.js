@@ -329,7 +329,7 @@ const Navber = (props) => {
               </div>
             )}
             {/* Cart Modal Button */}
-            { <div
+            { /*<div
               onClick={(e) => cartModalOpen()}
               className="hover:bg-gray-200 px-2 py-2 rounded-lg relative cursor-pointer"
               title="Cart"
@@ -351,7 +351,7 @@ const Navber = (props) => {
               <span className="absolute top-0 ml-6 mt-1 bg-yellow-700 rounded px-1 text-white text-xs hover:text-gray-200 font-semibold">
                 {data.cartProduct !== null ? data.cartProduct.length : 0}
               </span>
-            </div> }
+            </div>*/ }
           </div>
         </div>
         <div
